@@ -4,8 +4,8 @@ Projeto de HelpDesk com interface web (HTML/CSS/JS) e backend em Node.js que exp
 
 ## Visão geral
 
-- **Frontend**: `Pagina_Principal.html` + `style.css` (servidos pelo próprio Node/Express)
-- **Backend**: `server.js` (Express)
+- **Frontend**: `public/Pagina_Principal.html` + `public/style.css` (servidos pelo próprio Node/Express)
+- **Backend**: `src/server.js` (Express)
 - **Banco de dados**: SQLite (`data/helpdesk.sqlite`)
 - **Dados carregados do banco**:
   - Categorias
@@ -36,10 +36,12 @@ Abra no navegador:
 
 ```
 .
-├─ Pagina_Principal.html        # Frontend (consome a API via fetch)
-├─ style.css                    # Estilos
-├─ server.js                    # API + servidor de arquivos estáticos
-├─ db.js                        # SQLite: conexão, migrations e seed
+├─ public/
+│  ├─ Pagina_Principal.html     # Frontend (consome a API via fetch)
+│  └─ style.css                 # Estilos
+├─ src/
+│  ├─ server.js                 # API + servidor de arquivos estáticos
+│  └─ db.js                     # SQLite: conexão, migrations e seed
 ├─ package.json                 # Dependências e scripts
 └─ data/
    └─ helpdesk.sqlite           # Banco (criado automaticamente ao rodar)
@@ -147,5 +149,5 @@ Resposta:
 ## Notas de desenvolvimento
 
 - O frontend chama a API usando `fetch()` diretamente (mesma origem), então basta rodar o Node.
-- Se quiser adicionar mais dados (artigos/FAQ/categorias), edite o seed em `db.js` ou crie novos endpoints para CRUD.
+- Se quiser adicionar mais dados (artigos/FAQ/categorias), edite o seed em `src/db.js` ou crie novos endpoints para CRUD.
 
