@@ -7,8 +7,10 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 130vh;
-    padding: 120px;
+    min-height: 100vh;
+    padding: clamp(16px, 5vw, 120px);
+    display: flex;
+    justify-content: center;
 }
 
         .container {
@@ -18,6 +20,7 @@ body {
             overflow: hidden;
             max-width: 1200px;
             width: 100%;
+            margin: 0 auto;
         }
 
 /* Header Section */

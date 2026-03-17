@@ -8,6 +8,9 @@
 </head>
 <body>
     <div class="container">
+        <div id="protocolWarning" style="display:none; padding: 16px 20px; background: #fff3cd; color: #664d03; border-bottom: 1px solid #ffe69c;">
+            Você abriu esta página como arquivo (file://). Para carregar Categorias/Artigos/FAQ do banco de dados, rode o servidor e acesse em <strong>http://localhost:3000</strong>.
+        </div>
         <div class="header-section">
             <h1>Auto HelpDesk</h1>
             <p>Como podemos ajudá-lo hoje?</p>
@@ -19,130 +22,17 @@
 
         <div class="categories-section">
             <h2>Categorias Populares</h2>
-            <div class="categories-grid">
-                <div class="category-card" onclick="filterByCategory('Início Rápido')">
-                    <div class="category-icon">🚀</div>
-                    <div class="category-name">Início Rápido</div>
-                    <div class="category-count">12 artigos</div>
-                </div>
-
-                <div class="category-card featured" onclick="filterByCategory('Conta e Perfil')">
-                    <div class="category-icon">👤</div>
-                    <div class="category-name">Conta e Perfil</div>
-                    <div class="category-count">8 artigos</div>
-                </div>
-
-                <div class="category-card" onclick="filterByCategory('HelpDesk')">
-                    <div class="category-icon">🚨</div>
-                    <div class="category-name">HelpDesk</div>
-                    <div class="category-count">1 artigo</div>
-                </div>
-
-                <div class="category-card" onclick="filterByCategory('Cobrança')">
-                    <div class="category-icon">💳</div>
-                    <div class="category-name">Cobrança</div>
-                    <div class="category-count">15 artigos</div>
-                </div>
-
-                <div class="category-card" onclick="filterByCategory('Segurança')">
-                    <div class="category-icon">🔒</div>
-                    <div class="category-name">Segurança</div>
-                    <div class="category-count">10 artigos</div>
-                </div>
-
-                <div class="category-card" onclick="filterByCategory('Integrações')">
-                    <div class="category-icon">🔌</div>
-                    <div class="category-name">Integrações</div>
-                    <div class="category-count">7 artigos</div>
-                </div>
-
-                <div class="category-card" onclick="filterByCategory('Troubleshooting')">
-                    <div class="category-icon">🔧</div>
-                    <div class="category-name">Solução de Problemas</div>
-                    <div class="category-count">20 artigos</div>
-                </div>
-            </div>
+            <div id="categoriesGrid" class="categories-grid"></div>
         </div>
 
         <div class="articles-section">
             <h2>Artigos em Destaque</h2>
-            <div class="articles-grid">
-                <div class="article-card" onclick="openArticle('Como criar minha conta')">
-                    <div class="article-icon">📝</div>
-                    <div class="article-title">Como criar minha conta</div>
-                    <div class="article-excerpt">Aprenda a configurar sua conta em poucos passos simples...</div>
-                    <div class="article-category">Início Rápido</div>
-                </div>
-
-                <div class="article-card" onclick="openArticle('Recuperar senha')">
-                    <div class="article-icon">🔑</div>
-                    <div class="article-title">Como recuperar minha senha</div>
-                    <div class="article-excerpt">Siga este guia passo a passo para recuperar o acesso à sua conta...</div>
-                    <div class="article-category">Conta e Perfil</div>
-                </div>
-
-                <div class="article-card" onclick="openArticle('Métodos de pagamento')">
-                    <div class="article-icon">💳</div>
-                    <div class="article-title">Métodos de pagamento aceitos</div>
-                    <div class="article-excerpt">Veja todas as formas de pagamento disponíveis e como utilizá-las...</div>
-                    <div class="article-category">Cobrança</div>
-                </div>
-            </div>
+            <div id="articlesGrid" class="articles-grid"></div>
         </div>
 
         <div class="faq-section">
             <h2>Perguntas Frequentes</h2>
-            <div class="faq-list">
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">
-                        <span>Como altero minha senha?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Para alterar sua senha, acesse Configurações > Segurança > Alterar Senha. Você receberá um email de confirmação para completar a alteração.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">
-                        <span>Como cancelo minha assinatura?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Você pode cancelar sua assinatura a qualquer momento em Configurações > Assinatura > Cancelar. Seu acesso permanecerá ativo até o fim do período pago.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">
-                        <span>Como entro em contato com o suporte?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Você pode abrir um ticket de suporte usando o formulário abaixo ou enviar um email para suporte@gsmsystems.com. Nossa equipe responde em até 24 horas dependendo do plano/demanda.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">
-                        <span>Como funciona cada Plano?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Plano A/Plano B/Plano C/Plano D/Plano E/Plano F</p>
-                    </div>
-                </div>
-
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">
-                        <span>Meu pagamento não foi processado, o que fazer?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Verifique se os dados do cartão estão corretos. Se o problema persistir, entre em contato com seu banco ou tente usar outro método de pagamento.</p>
-                    </div>
-                </div>
-            </div>
+            <div id="faqList" class="faq-list"></div>
         </div>
 
         <div class="contact-section">
@@ -181,14 +71,113 @@
     </div>
 
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // If you're not opening this page via the Node server (port 3000),
+        // relative "/api/..." routes will 404. In that case, point to the API server.
+        const API_BASE = (window.location.protocol === 'file:' || window.location.port !== '3000')
+            ? 'http://localhost:3000'
+            : '';
+
+        async function apiGet(path) {
+            const res = await fetch(`${API_BASE}${path}`);
+            if (!res.ok) throw new Error(`GET ${path} falhou: ${res.status}`);
+            return await res.json();
+        }
+
+        async function apiPost(path, body) {
+            const res = await fetch(`${API_BASE}${path}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            const payload = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(payload.error || `POST ${path} falhou: ${res.status}`);
+            return payload;
+        }
+
+        function el(tag, className, text) {
+            const node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text != null) node.textContent = text;
+            return node;
+        }
+
+        function renderCategories(categories) {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = '';
+
+            categories.forEach(c => {
+                const card = el('div', `category-card${c.featured ? ' featured' : ''}`);
+                card.addEventListener('click', () => filterByCategory(c.name));
+                card.appendChild(el('div', 'category-icon', c.icon));
+                card.appendChild(el('div', 'category-name', c.name));
+                card.appendChild(el('div', 'category-count', `${c.articleCount} artigo${c.articleCount === 1 ? '' : 's'}`));
+                grid.appendChild(card);
+            });
+        }
+
+        function renderArticles(articles) {
+            const grid = document.getElementById('articlesGrid');
+            grid.innerHTML = '';
+
+            articles.forEach(a => {
+                const card = el('div', 'article-card');
+                card.addEventListener('click', () => openArticle(a.title));
+                card.appendChild(el('div', 'article-icon', a.icon));
+                card.appendChild(el('div', 'article-title', a.title));
+                card.appendChild(el('div', 'article-excerpt', a.excerpt));
+                card.appendChild(el('div', 'article-category', a.category));
+                grid.appendChild(card);
+            });
+        }
+
+        function renderFaqs(faqs) {
+            const list = document.getElementById('faqList');
+            list.innerHTML = '';
+
+            faqs.forEach(f => {
+                const item = el('div', 'faq-item');
+                const question = el('div', 'faq-question');
+                question.appendChild(el('span', '', f.question));
+                question.appendChild(el('span', 'faq-toggle', '+'));
+
+                const answer = el('div', 'faq-answer');
+                const p = el('p', '', f.answer);
+                answer.appendChild(p);
+
+                item.appendChild(question);
+                item.appendChild(answer);
+
+                item.addEventListener('click', () => toggleFaq(item));
+                list.appendChild(item);
+            });
+        }
+
+        async function loadInitialData() {
+            const [categories, articles, faqs] = await Promise.all([
+                apiGet('/api/categories'),
+                apiGet('/api/articles?featured=1'),
+                apiGet('/api/faqs')
+            ]);
+
+            renderCategories(categories);
+            renderArticles(articles);
+            renderFaqs(faqs);
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('contactName').value;
             const email = document.getElementById('contactEmail').value;
             const subject = document.getElementById('contactSubject').value;
-            
-            alert(`Ticket enviado com sucesso! Obrigado, ${name}. Responderemos em breve para ${email}`);
-            this.reset();
+            const message = document.getElementById('contactMessage').value;
+
+            try {
+                await apiPost('/api/tickets', { name, email, subject, message });
+                alert(`Ticket enviado com sucesso! Obrigado, ${name}. Responderemos em breve para ${email}`);
+                this.reset();
+            } catch (err) {
+                alert(`Erro ao enviar ticket: ${err.message}`);
+            }
         });
 
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
@@ -204,129 +193,72 @@
             }
         });
 
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.trim().toLowerCase();
-            
+        async function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+
             if (!query) {
-                // If search is empty, show all items
-                showAllItems();
+                await showAllItems();
                 return;
             }
 
-            let hasResults = false;
+            try {
+                const [categories, articles, faqs] = await Promise.all([
+                    apiGet(`/api/categories`),
+                    apiGet(`/api/articles?q=${encodeURIComponent(query)}`),
+                    apiGet(`/api/faqs`)
+                ]);
 
-            // Search in article cards
-            const articleCards = document.querySelectorAll('.article-card');
-            articleCards.forEach(card => {
-                const title = card.querySelector('.article-title').textContent.toLowerCase();
-                const excerpt = card.querySelector('.article-excerpt').textContent.toLowerCase();
-                const category = card.querySelector('.article-category').textContent.toLowerCase();
-                
-                const matches = title.includes(query) || excerpt.includes(query) || category.includes(query);
-                
-                if (matches) {
-                    card.style.display = 'block';
-                    hasResults = true;
+                // categories + faqs: filtra no front (simples e rápido)
+                const q = query.toLowerCase();
+                const filteredCategories = categories.filter(c => c.name.toLowerCase().includes(q));
+                const filteredFaqs = faqs.filter(f => (f.question + ' ' + f.answer).toLowerCase().includes(q));
+
+                renderCategories(filteredCategories);
+                renderArticles(articles);
+                renderFaqs(filteredFaqs);
+
+                const hasResults = filteredCategories.length > 0 || articles.length > 0 || filteredFaqs.length > 0;
+
+                document.querySelector('.categories-section').style.display = filteredCategories.length ? 'block' : 'none';
+                document.querySelector('.articles-section').style.display = articles.length ? 'block' : 'none';
+                document.querySelector('.faq-section').style.display = filteredFaqs.length ? 'block' : 'none';
+
+                let noResultsMsg = document.getElementById('noResultsMessage');
+                if (!hasResults) {
+                    if (!noResultsMsg) {
+                        noResultsMsg = document.createElement('div');
+                        noResultsMsg.id = 'noResultsMessage';
+                        noResultsMsg.style.cssText = 'text-align: center; padding: 40px; color: #666; font-size: 1.2em;';
+                        noResultsMsg.innerHTML = `<p>Nenhum resultado encontrado para "<strong>${query}</strong>"</p><p style="margin-top: 10px; font-size: 0.9em;">Tente usar outras palavras-chave ou verifique a ortografia.</p>`;
+                        document.querySelector('.container').appendChild(noResultsMsg);
+                    }
                 } else {
-                    card.style.display = 'none';
+                    if (noResultsMsg) noResultsMsg.remove();
                 }
-            });
-
-            // Search in FAQ items
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
-                const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
-                
-                const matches = question.includes(query) || answer.includes(query);
-                
-                if (matches) {
-                    item.style.display = 'block';
-                    hasResults = true;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-
-            // Search in category cards
-            const categoryCards = document.querySelectorAll('.category-card');
-            categoryCards.forEach(card => {
-                const categoryName = card.querySelector('.category-name').textContent.toLowerCase();
-                
-                const matches = categoryName.includes(query);
-                
-                if (matches) {
-                    card.style.display = 'block';
-                    hasResults = true;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            // Show/hide sections based on results
-            const articlesSection = document.querySelector('.articles-section');
-            const faqSection = document.querySelector('.faq-section');
-            const categoriesSection = document.querySelector('.categories-section');
-
-            // Check if there are visible articles
-            const visibleArticles = Array.from(articleCards).some(card => card.style.display !== 'none');
-            articlesSection.style.display = visibleArticles ? 'block' : 'none';
-
-            // Check if there are visible FAQs
-            const visibleFaqs = Array.from(faqItems).some(item => item.style.display !== 'none');
-            faqSection.style.display = visibleFaqs ? 'block' : 'none';
-
-            // Check if there are visible categories
-            const visibleCategories = Array.from(categoryCards).some(card => card.style.display !== 'none');
-            categoriesSection.style.display = visibleCategories ? 'block' : 'none';
-
-            // Show message if no results
-            let noResultsMsg = document.getElementById('noResultsMessage');
-            if (!hasResults) {
-                if (!noResultsMsg) {
-                    noResultsMsg = document.createElement('div');
-                    noResultsMsg.id = 'noResultsMessage';
-                    noResultsMsg.style.cssText = 'text-align: center; padding: 40px; color: #666; font-size: 1.2em;';
-                    noResultsMsg.innerHTML = `<p>Nenhum resultado encontrado para "<strong>${query}</strong>"</p><p style="margin-top: 10px; font-size: 0.9em;">Tente usar outras palavras-chave ou verifique a ortografia.</p>`;
-                    document.querySelector('.container').appendChild(noResultsMsg);
-                }
-            } else {
-                if (noResultsMsg) {
-                    noResultsMsg.remove();
-                }
+            } catch (err) {
+                alert(`Erro na busca: ${err.message}`);
             }
         }
 
-        function showAllItems() {
-            // Show all article cards
-            document.querySelectorAll('.article-card').forEach(card => {
-                card.style.display = 'block';
-            });
+        async function showAllItems() {
+            const noResultsMsg = document.getElementById('noResultsMessage');
+            if (noResultsMsg) noResultsMsg.remove();
 
-            // Show all FAQ items
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.style.display = 'block';
-            });
-
-            // Show all category cards
-            document.querySelectorAll('.category-card').forEach(card => {
-                card.style.display = 'block';
-            });
-
-            // Show all sections
+            document.querySelector('.categories-section').style.display = 'block';
             document.querySelector('.articles-section').style.display = 'block';
             document.querySelector('.faq-section').style.display = 'block';
-            document.querySelector('.categories-section').style.display = 'block';
 
-            // Remove no results message if exists
-            const noResultsMsg = document.getElementById('noResultsMessage');
-            if (noResultsMsg) {
-                noResultsMsg.remove();
-            }
+            await loadInitialData();
         }
 
-        function filterByCategory(category) {
-            alert(`Filtrando artigos da categoria: ${category}\n\nEm uma implementação real, esta ação mostraria apenas os artigos desta categoria.`);
+        async function filterByCategory(category) {
+            try {
+                const articles = await apiGet(`/api/articles?category=${encodeURIComponent(category)}`);
+                renderArticles(articles);
+                document.querySelector('.articles-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (err) {
+                alert(`Erro ao filtrar: ${err.message}`);
+            }
         }
 
         function openArticle(title) {
@@ -350,6 +282,14 @@
                 const toggle = element.querySelector('.faq-toggle');
                 toggle.textContent = '−';
             }
+        }
+
+        loadInitialData().catch(err => {
+            alert(`Erro ao carregar dados iniciais: ${err.message}`);
+        });
+
+        if (window.location.protocol === 'file:') {
+            document.getElementById('protocolWarning').style.display = 'block';
         }
     </script>
 </body>
