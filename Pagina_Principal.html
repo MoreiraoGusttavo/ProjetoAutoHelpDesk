@@ -9,34 +9,141 @@
 <body>
     <div class="container">
         <div id="protocolWarning" style="display:none; padding: 16px 20px; background: #fff3cd; color: #664d03; border-bottom: 1px solid #ffe69c;">
-            Você abriu esta página como arquivo (file://). Para carregar Categorias/Artigos/FAQ do banco de dados, rode o servidor e acesse em <strong>http://localhost:3000</strong>.
+            Você abriu esta página como arquivo (file://). Para carregar Categorias/Artigos/FAQ do banco de dados, rode o servidor e acesse em <strong>http://localhost:3000/principal</strong>.
         </div>
         <div class="header-section">
-            <h1>GSM Auto HelpDesk</h1>
-            <p>Como podemos ajudá-lo hoje?</p>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Busque por palavras-chave, tópicos ou perguntas..." class="search-input">
-                <button class="search-btn" onclick="performSearch()">Buscar</button>
+            <nav class="top-nav">
+                <div class="brand">GSM Auto HelpDesk</div>
+                <div class="nav-links">
+                    <a href="#categories">Categorias</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#plans">Planos</a>
+                    <a href="#contact" class="nav-link-cta">Abrir Ticket</a>
+                    <span class="nav-user" id="userGreeting" style="display:none"></span>
+                </div>
+            </nav>
+
+            <div class="hero">
+                <div class="hero-left">
+                    <div class="hero-badge">
+                        <span class="hero-badge-dot"></span>
+                        Suporte rápido e organizado
+                    </div>
+
+                    <h1>Bem-vindo ao GSM Auto HelpDesk</h1>
+                    <p>Como podemos ajudá-lo hoje? Use a busca para filtrar categorias, artigos e perguntas frequentes.</p>
+
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Busque por categorias, artigos ou perguntas..." class="search-input">
+                        <button class="search-btn" onclick="performSearch()">Buscar</button>
+                    </div>
+
+                    <div class="hero-actions">
+                        <button type="button" class="ghost-btn" onclick="document.getElementById('categories').scrollIntoView({ behavior: 'smooth', block: 'start' })">Explorar Categorias</button>
+                        <a class="link-btn" href="#contact">Enviar Ticket</a>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="hero-bottom-fade" aria-hidden="true"></div>
         </div>
 
-        <div class="categories-section">
-            <h2>Categorias Populares</h2>
+        <div class="categories-section" id="categories">
+            <h2>Categorias</h2>
             <div id="categoriesGrid" class="categories-grid"></div>
         </div>
 
-        <div class="articles-section">
-            <h2>Artigos em Destaque</h2>
+        <div class="articles-section" id="articles">
+            <h2>Artigos</h2>
             <div id="articlesGrid" class="articles-grid"></div>
         </div>
 
-        <div class="faq-section">
+        <div class="faq-section" id="faq">
             <h2>Perguntas Frequentes</h2>
             <div id="faqList" class="faq-list"></div>
         </div>
 
-        <div class="contact-section">
-            <h2>Ainda precisa de ajuda?</h2>
+        <div class="plans-section" id="plans">
+            <h2>Nossos Planos</h2>
+            <p>Escolha o melhor plano para você</p>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Plano Gratuito</h3>
+                        <div class="plan-price">
+                            <span class="price">Grátis</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✓ Acesso básico ao HelpDesk</li>
+                        <li>✓ Até 5 tickets por mês</li>
+                        <li>✓ Suporte por email</li>
+                        <li>✗ Prioridade padrão</li>
+                        <li>✗ Relatórios avançados</li>
+                    </ul>
+                    <button class="plan-btn plan-btn-free">Começar Agora</button>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Plano Plus</h3>
+                        <div class="plan-price">
+                            <span class="currency">R$</span>
+                            <span class="amount">100</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✓ Acesso completo ao HelpDesk</li>
+                        <li>✓ Até 50 tickets por mês</li>
+                        <li>✓ Suporte por email e chat</li>
+                        <li>✓ Prioridade média</li>
+                        <li>✗ Relatórios avançados</li>
+                    </ul>
+                    <button class="plan-btn plan-btn-plus">Assinar Agora</button>
+                </div>
+
+                <div class="plan-card plan-card-highlighted">
+                    <div class="plan-header">
+                        <h3>Plano Pro</h3>
+                        <div class="plan-price">
+                            <span class="currency">R$</span>
+                            <span class="amount">250</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✓ Acesso ilimitado ao HelpDesk</li>
+                        <li>✓ Tickets ilimitados</li>
+                        <li>✓ Suporte por email, chat e telefone</li>
+                        <li>✓ Prioridade alta</li>
+                        <li>✓ Relatórios básicos</li>
+                    </ul>
+                    <button class="plan-btn plan-btn-pro">Assinar Agora</button>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Plano Premium</h3>
+                        <div class="plan-price">
+                            <span class="currency">R$</span>
+                            <span class="amount">500</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✓ Tudo do Plano Pro</li>
+                        <li>✓ Gestor de conta dedicado</li>
+                        <li>✓ Relatórios avançados</li>
+                        <li>✓ Prioridade máxima</li>
+                        <li>✓ Integração com APIs</li>
+                    </ul>
+                    <button class="plan-btn plan-btn-premium">Assinar Agora</button>
+                </div>
+
+                <div class="contact-section" id="contact">
+            <h2>Precisa de ajuda?</h2>
             <p>Nossa equipe está pronta para ajudar você</p>
             <form id="contactForm" class="contact-form">
                 <div class="form-group">
@@ -73,9 +180,9 @@
     <script>
         // If you're not opening this page via the Node server (port 3000),
         // relative "/api/..." routes will 404. In that case, point to the API server.
-        const API_BASE = (window.location.protocol === 'file:' || window.location.port !== '3000')
-            ? 'http://localhost:3000'
-            : '';
+        // Se abrir via file://, precisamos apontar para o backend local.
+        // Se estiver rodando pelo Node/Express, podemos usar rotas relativas.
+        const API_BASE = (window.location.protocol === 'file:') ? 'http://localhost:3000' : '';
 
         async function apiGet(path) {
             const res = await fetch(`${API_BASE}${path}`);
@@ -122,7 +229,6 @@
             articles.forEach(a => {
                 const card = el('div', 'article-card');
                 card.addEventListener('click', () => openArticle(a.title));
-                card.appendChild(el('div', 'article-icon', a.icon));
                 card.appendChild(el('div', 'article-title', a.title));
                 card.appendChild(el('div', 'article-excerpt', a.excerpt));
                 card.appendChild(el('div', 'article-category', a.category));
@@ -228,7 +334,7 @@
                     if (!noResultsMsg) {
                         noResultsMsg = document.createElement('div');
                         noResultsMsg.id = 'noResultsMessage';
-                        noResultsMsg.style.cssText = 'text-align: center; padding: 40px; color: #666; font-size: 1.2em;';
+                        noResultsMsg.style.cssText = 'text-align: center; padding: 40px; color: rgba(233, 236, 255, 0.85); font-size: 1.2em;';
                         noResultsMsg.innerHTML = `<p>Nenhum resultado encontrado para "<strong>${query}</strong>"</p><p style="margin-top: 10px; font-size: 0.9em;">Tente usar outras palavras-chave ou verifique a ortografia.</p>`;
                         document.querySelector('.container').appendChild(noResultsMsg);
                     }
@@ -291,6 +397,42 @@
         if (window.location.protocol === 'file:') {
             document.getElementById('protocolWarning').style.display = 'block';
         }
+
+        // Login (opcional): mostra "Olá, <username>" se houver token salvo.
+        async function loadUserGreeting() {
+            try {
+                const token = localStorage.getItem('authToken');
+                const elGreeting = document.getElementById('userGreeting');
+                const loginLink = document.getElementById('loginLink');
+                if (!elGreeting) return;
+
+                // Se não tiver token, mantém o botão "Entrar" visível.
+                if (!token) {
+                    if (loginLink) loginLink.style.display = 'inline';
+                    return;
+                }
+
+                if (loginLink) loginLink.style.display = 'none';
+
+                const res = await fetch(`${API_BASE}/api/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!res.ok) throw new Error('Token inválido');
+
+                const payload = await res.json();
+                elGreeting.textContent = `Olá: ${payload.username}`;
+                elGreeting.style.display = 'inline';
+            } catch {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('username');
+                const elGreeting = document.getElementById('userGreeting');
+                const loginLink = document.getElementById('loginLink');
+                if (elGreeting) elGreeting.style.display = 'none';
+                if (loginLink) loginLink.style.display = 'inline';
+            }
+        }
+
+        loadUserGreeting();
     </script>
 </body>
 </html>
