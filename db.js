@@ -7,7 +7,8 @@ function ensureDir(dirPath) {
 }
 
 function openDb() {
-  const dataDir = path.join(__dirname, "data");
+  // Mantém o banco em <raiz>/data mesmo com o arquivo dentro de src/
+  const dataDir = path.join(__dirname, "..", "data");
   ensureDir(dataDir);
   const dbPath = path.join(dataDir, "helpdesk.sqlite");
   const db = new Database(dbPath);
@@ -49,6 +50,16 @@ function migrate(db) {
       email TEXT NOT NULL,
       subject TEXT NOT NULL,
       message TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    -- Autenticação (Login / Cadastro)
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY,
+      username TEXT NOT NULL UNIQUE,
+      email TEXT,
+      password_salt TEXT NOT NULL,
+      password_hash TEXT NOT NULL,
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
   `);
