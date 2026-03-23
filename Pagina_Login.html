@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <link rel="stylesheet" href="Style_Login.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - GSM Auto HelpDesk</title>
+  </head>
+  <body>
+    <div class="container">
+      <div
+        id="protocolWarning"
+        style="display:none; padding: 16px 20px; background: #fff3cd; color: #664d03; border-bottom: 1px solid #ffe69c;"
+      >
+        Você abriu esta página como arquivo (file://). Para usar o login (cadastro/entrar), rode o servidor e acesse em
+        <strong>http://localhost:3000</strong>.
+      </div>
+
+      <div class="header-section">
+        <nav class="top-nav">
+          <div class="brand">GSM Auto HelpDesk</div>
+          <div class="nav-links">
+            <a href="/principal" class="nav-link">Principal</a>
+          </div>
+        </nav>
+
+        <div id="loggedGreeting" class="logged-greeting" style="display:none; margin-top: 14px;">
+          <div class="logged-greeting-title">Olá: <span id="loggedUsername"></span></div>
+          <div class="logged-greeting-actions">
+            <a class="link-btn" href="/principal" onclick="return redirectAfterLogin()">Continuar para o HelpDesk</a>
+            <button type="button" class="ghost-btn" onclick="logout()">Sair</button>
+          </div>
+        </div>
+
+        <div class="hero" style="padding: 8px 0 0;">
+          <div class="hero-left">
+            <div class="hero-badge">
+              <span class="hero-badge-dot"></span>
+              
+            </div>
+            <h1 style="margin-top: 18px;">Entre ou crie sua conta</h1>
+          </div>
+
+          <div class="hero-right">
+            <div class="auth-card">
+              <div class="auth-tabs">
+                <button
+                  id="tabLoginBtn"
+                  type="button"
+                  class="tab-btn tab-btn-active"
+                  onclick="showTab('login')"
+                >
+                  Entrar
+                </button>
+                <button
+                  id="tabSignupBtn"
+                  type="button"
+                  class="tab-btn"
+                  onclick="showTab('signup')"
+                >
+                  Cadastro
+                </button>
+              </div>
+
+              <div id="tabLogin" class="tab-pane tab-pane-active">
+                <form id="loginForm" class="auth-form">
+                  <div class="form-group">
+                    <label for="loginUsername">Usuário</label>
+                    <input
+                      type="text"
+                      id="loginUsername"
+                      name="username"
+                      placeholder="ex.: gusttavo"
+                      required
+                      autocomplete="username"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <input
+                      type="password"
+                      id="loginPassword"
+                      name="password"
+                      placeholder="Digite sua senha"
+                      required
+                      autocomplete="current-password"
+                    />
+                  </div>
+                  <button type="submit" class="submit-btn">Entrar</button>
+                  <button type="button" class="forgot-btn" onclick="forgotPassword()">Esqueceu sua senha?</button>
+                  <div id="authError" class="auth-error" role="alert"></div>
+                </form>
+              </div>
+
+              <div id="tabSignup" class="tab-pane">
+                <form id="signupForm" class="auth-form">
+                  <div class="form-group">
+                    <label for="signupUsername">Usuário</label>
+                    <input
+                      type="text"
+                      id="signupUsername"
+                      name="username"
+                      placeholder="ex.: gusttavo"
+                      required
+                      autocomplete="username"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="signupEmail">Email (opcional)</label>
+                    <input
+                      type="email"
+                      id="signupEmail"
+                      name="email"
+                      placeholder="seu@email.com"
+                      autocomplete="email"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="signupPassword">Senha</label>
+                    <input
+                      type="password"
+                      id="signupPassword"
+                      name="password"
+                      placeholder="mínimo 6 caracteres"
+                      required
+                      autocomplete="new-password"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="signupConfirmPassword">Confirmar senha</label>
+                    <input
+                      type="password"
+                      id="signupConfirmPassword"
+                      name="confirmPassword"
+                      placeholder="repita sua senha"
+                      required
+                      autocomplete="new-password"
+                    />
+                  </div>
+                  <button type="submit" class="submit-btn">Criar conta</button>
+                  <div id="authError2" class="auth-error" role="alert"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Se estiver usando file://, precisamos apontar para o backend local.
+      const API_BASE = (window.location.protocol === "file:")
+        ? "http://localhost:3000"
+        : "";
+
+      function showTab(tabName) {
+        const tabLogin = document.getElementById("tabLogin");
+        const tabSignup = document.getElementById("tabSignup");
+        const tabLoginBtn = document.getElementById("tabLoginBtn");
+        const tabSignupBtn = document.getElementById("tabSignupBtn");
+
+        if (tabName === "signup") {
+          tabLogin.classList.remove("tab-pane-active");
+          tabSignup.classList.add("tab-pane-active");
+          tabLoginBtn.classList.remove("tab-btn-active");
+          tabSignupBtn.classList.add("tab-btn-active");
+        } else {
+          tabSignup.classList.remove("tab-pane-active");
+          tabLogin.classList.add("tab-pane-active");
+          tabSignupBtn.classList.remove("tab-btn-active");
+          tabLoginBtn.classList.add("tab-btn-active");
+        }
+      }
+
+      async function apiPost(path, body) {
+        const res = await fetch(`${API_BASE}${path}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+
+        const payload = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(payload.error || `POST ${path} falhou: ${res.status}`);
+        return payload;
+      }
+
+      async function apiGetMe() {
+        const token = localStorage.getItem("authToken");
+        if (!token) return null;
+
+        const res = await fetch(`${API_BASE}/api/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) return null;
+
+        return await res.json();
+      }
+
+      function setError(elId, msg) {
+        const el = document.getElementById(elId);
+        if (el) el.textContent = msg || "";
+      }
+
+      function paintGreeting(username) {
+        document.getElementById("loggedGreeting").style.display = "block";
+        document.getElementById("loggedUsername").textContent = username;
+      }
+
+      async function checkExistingSession() {
+        try {
+          const payload = await apiGetMe();
+          if (!payload) return;
+
+          localStorage.setItem("username", payload.username);
+          paintGreeting(payload.username);
+          document.getElementById("loggedGreeting").scrollIntoView({ behavior: "smooth", block: "center" });
+        } catch {
+          // ignore
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("username");
+        window.location.reload();
+      }
+
+      function forgotPassword() {
+        const email = prompt("Digite seu email para redefinir a senha:");
+        if (email) {
+          alert(`Um link de redefinição de senha foi enviado para ${email}. (Funcionalidade simulada)`);
+        }
+      }
+
+      function redirectAfterLogin() {
+        // Mantém o usuário logado via localStorage.
+        return true;
+      }
+
+      document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        setError("authError", "");
+
+        const username = document.getElementById("loginUsername").value.trim();
+        const password = document.getElementById("loginPassword").value;
+
+        try {
+          const payload = await apiPost("/api/auth/login", { username, password });
+          localStorage.setItem("authToken", payload.token);
+          localStorage.setItem("username", payload.username);
+
+          paintGreeting(payload.username);
+        } catch (err) {
+          setError("authError", err.message);
+        }
+      });
+
+      document.getElementById("signupForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        setError("authError2", "");
+
+        const username = document.getElementById("signupUsername").value.trim();
+        const email = document.getElementById("signupEmail").value.trim();
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("signupConfirmPassword").value;
+
+        if (password !== confirmPassword) {
+          setError("authError2", "As senhas não conferem. Verifique e tente novamente.");
+          return;
+        }
+
+        try {
+          const payload = await apiPost("/api/auth/signup", { username, email, password });
+          localStorage.setItem("authToken", payload.token);
+          localStorage.setItem("username", payload.username);
+
+          paintGreeting(payload.username);
+        } catch (err) {
+          setError("authError2", err.message);
+        }
+      });
+
+      if (window.location.protocol === "file:") {
+        document.getElementById("protocolWarning").style.display = "block";
+      }
+
+      checkExistingSession();
+    </script>
+  </body>
+</html>
+
