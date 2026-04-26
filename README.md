@@ -325,3 +325,4 @@ O sistema utiliza autenticação baseada em tokens JWT-like para conectar as pá
 - `AUTH_SECRET`: segredo usado para assinar os tokens de autenticação.
   - Se não definido, o projeto usa um valor `dev-secret-change-me` (ideal ajustar antes de produção).
 
+Desenvolvido por Gusttavo Sacco Moreirão
